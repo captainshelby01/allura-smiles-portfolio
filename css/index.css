@@ -1645,34 +1645,29 @@ p {
         text-align: center;
     }
     
-    /* Hide floating WhatsApp button on mobile, show sticky footer bar instead */
+    /* Make floating WhatsApp button look good on mobile */
     .sticky-whatsapp-btn {
-        display: none;
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        border-radius: 30px;
+        display: flex;
+    }
+    
+    .sticky-whatsapp-btn i {
+        font-size: 1.25rem;
+    }
+    
+    .sticky-whatsapp-btn span {
+        font-size: 0.85rem;
     }
     
     .sticky-mobile-bar {
-        display: block;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: #25D366;
-        color: #FFFFFF;
-        text-align: center;
-        padding: 16px;
-        font-weight: 600;
-        z-index: 99;
-        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
-        font-size: 0.95rem;
-    }
-    
-    .sticky-mobile-bar i {
-        margin-right: 8px;
-        font-size: 1.1rem;
+        display: none !important;
     }
     
     main {
-        padding-bottom: 50px; /* Leave space for bottom bar */
+        padding-bottom: 20px;
     }
 }
 
