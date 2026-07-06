@@ -1549,10 +1549,12 @@ p {
     }
     
     .nav-btn-outline {
-        display: block;
-        width: 100%;
+        display: inline-block;
+        width: auto;
         text-align: center;
         margin-top: 10px;
+        font-size: 0.75rem;
+        padding: 12px 24px;
     }
     
     /* Hamburger Active Animations */
