@@ -175,20 +175,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (portfolioCards.length > 0 && videoModal && modalClose && modalContent) {
         
+        // Helper to parse YouTube Video ID
+        const getYouTubeId = (url) => {
+            let videoId = '';
+            if (url.includes('youtube.com/shorts/')) {
+                videoId = url.split('youtube.com/shorts/')[1].split('?')[0];
+            } else if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
+            } else if (url.includes('youtube.com/watch')) {
+                const parts = url.split('v=');
+                if (parts.length > 1) {
+                    videoId = parts[1].split('&')[0];
+                }
+            }
+            return videoId;
+        };
+
         portfolioCards.forEach(card => {
             card.addEventListener('click', () => {
                 const videoSrc = card.getAttribute('data-video');
                 const videoTitle = card.getAttribute('data-title') || "Creative Video";
                 
                 if (videoSrc) {
-                    // Inject Video Tag with attributes
-                    // preload="auto" to start loading immediately inside the modal
-                    modalContent.innerHTML = `
-                        <video controls autoplay loop playsinline name="media">
-                            <source src="${videoSrc}">
-                            Your browser does not support the video tag.
-                        </video>
-                    `;
+                    const ytId = getYouTubeId(videoSrc);
+                    if (ytId) {
+                        const isShort = videoSrc.includes('/shorts/');
+                        if (isShort) {
+                            videoModal.classList.add('vertical-player');
+                        } else {
+                            videoModal.classList.remove('vertical-player');
+                        }
+                        modalContent.innerHTML = `
+                            <iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowfullscreen>
+                            </iframe>
+                        `;
+                    } else {
+                        videoModal.classList.remove('vertical-player');
+                        modalContent.innerHTML = `
+                            <video controls autoplay loop playsinline name="media">
+                                <source src="${videoSrc}">
+                                Your browser does not support the video tag.
+                            </video>
+                        `;
+                    }
                     
                     // Show modal
                     videoModal.classList.add('active');
@@ -203,9 +235,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Close Modal handler
         const closePlayer = () => {
             videoModal.classList.remove('active');
+            videoModal.classList.remove('vertical-player');
             videoModal.setAttribute('aria-hidden', 'true');
             
-            // Remove video from DOM to immediately stop audio, release memory and network download
+            // Remove video/iframe from DOM to immediately stop audio, release memory and network download
             modalContent.innerHTML = '';
             
             // Restore page scrolling

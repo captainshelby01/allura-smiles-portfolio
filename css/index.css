@@ -227,14 +227,14 @@ p {
 .header-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px 24px;
+    padding: 12px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .logo-img {
-    height: 55px;
+    height: 75px;
     width: auto;
     object-fit: contain;
 }
@@ -685,8 +685,30 @@ p {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
+}
+
+.services-tagline {
+    margin-top: 50px;
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--accent-gold);
+    position: relative;
+    padding: 20px 0;
+}
+
+.services-tagline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
 }
 
 .service-card {
@@ -754,6 +776,7 @@ p {
 }
 
 .portfolio-card {
+    position: relative;
     background-color: var(--bg-primary);
     border-radius: var(--border-radius-lg);
     overflow: hidden;
@@ -797,6 +820,36 @@ p {
     letter-spacing: 0.15em;
     color: var(--accent-gold);
     font-weight: 600;
+}
+
+.portfolio-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+}
+
+.portfolio-card:hover .portfolio-thumb-img {
+    transform: scale(1.05);
+    filter: brightness(60%) blur(1px);
+}
+
+.video-category-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(8, 8, 8, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(197, 168, 128, 0.2);
+    color: var(--accent-gold);
+    padding: 4px 10px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    z-index: 4;
 }
 
 /* Play button overlay */
@@ -865,6 +918,7 @@ p {
 }
 
 .portfolio-action-image-wrapper {
+    position: relative;
     border-radius: var(--border-radius-lg);
     overflow: hidden;
     aspect-ratio: 4 / 3;
@@ -885,6 +939,75 @@ p {
 .portfolio-action-text {
     font-size: 1.05rem;
     line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 16px;
+}
+
+.meta-item {
+    font-size: 0.9rem;
+}
+
+.meta-label {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--accent-gold);
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.meta-value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.project-description {
+    margin-bottom: 30px;
+}
+
+.project-description p {
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.project-description p:last-child {
+    margin-bottom: 0;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.skill-tag {
+    font-size: 0.8rem;
+    background-color: rgba(197, 168, 128, 0.06);
+    border: 1px solid rgba(197, 168, 128, 0.15);
+    color: var(--accent-gold);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+}
+
+.skill-tag:hover {
+    background-color: rgba(197, 168, 128, 0.12);
+    border-color: var(--accent-gold);
+    transform: translateY(-2px);
 }
 
 /* ==========================================================================
@@ -1356,10 +1479,18 @@ p {
     overflow: hidden;
 }
 
-.modal-content video {
+.modal-content video,
+.modal-content iframe {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    border: none;
+}
+
+/* Vertical video lightbox player for YouTube Shorts */
+.video-modal.vertical-player .modal-content {
+    max-width: 420px;
+    aspect-ratio: 9 / 16;
+    height: 85vh;
 }
 
 /* Sticky Floating WhatsApp Button */
@@ -1498,8 +1629,12 @@ p {
 
 /* Mobile Viewports (under 768px) */
 @media (max-width: 768px) {
+    .header-container {
+        padding: 10px 16px;
+    }
+
     .logo-img {
-        height: 45px;
+        height: 55px;
     }
     
     .header-cta {
