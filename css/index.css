@@ -355,7 +355,7 @@ p {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 70% 20%;
+    object-position: center 15%;
     opacity: 0.85;
     pointer-events: none;
     user-select: none;
@@ -1584,7 +1584,7 @@ p {
     }
 
     .hero-bg-img {
-        object-position: 65% center;
+        object-position: center 15%;
         opacity: 0.55;
     }
     
